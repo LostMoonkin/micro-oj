@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.moonkin.microoj.db.mapper.UserMapper">
+
+    <insert id="addUser" parameterType="cc.moonkin.microoj.data.User" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO user(
+        <trim suffixOverrides=",">
+            <if test="userName != null">user_name,</if>
+            <if test="email != null">email,</if>
+            <if test="password != null">password,</if>
+            <if test="gender != null">gender,</if>
+            <if test="phone != null">phone,</if>
+            <if test="description != null">description,</if>
+            <if test="role != null">role</if>
+        </trim>
+        )VALUES(
+        <trim suffixOverrides=",">
+            <if test="userName != null">#{userName},</if>
+            <if test="email != null">#{email},</if>
+            <if test="password != null">#{password},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="description != null">#{description},</if>
+            <if test="role != null">#{role}</if>
+        </trim>
+        )
+    </insert>
+
+    <select id="getDisplayUser" resultType="cc.moonkin.microoj.data.User">
+        SELECT id, user_name, gender, description, role
+        FROM user
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="userName != null">OR user_name = #{userName}</if>
+            <if test="email != null">OR email = #{email}</if>
+            <if test="phone != null">OR phone = #{phone}</if>
+        </where>
+        LIMIT 1
+    </select>
+
+    <select id="getLoginUser" resultType="cc.moonkin.microoj.data.User">
+        SELECT id, role, password
+        FROM user
+        <where>
+            <if test="userName != null">user_name = #{userName}</if>
+            <if test="email != null">OR email = #{email}</if>
+            <if test="phone != null">OR phone = #{phone}</if>
+        </where>
+        LIMIT 1
+    </select>
+
+</mapper>

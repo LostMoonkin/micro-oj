@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:mysql://10.211.55.4:3306/ojdb?useSSL=false
+    username: ojadmin
+    password: HLy3cqus
+    driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  port: 8095
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations:
+    - classpath:cc/moonkin/microoj/db/mapper/*.xml
+
+jwt:
+  secret: a3ZkR00zQ2N6UHNITGt1MjNZb1RFd052WUJxSkdwUkw=
+  expiration: 86400000
+  long-expiration: 2592000000
+
+long-crypt:
+  key: 82567321235074
+  radix: 35
