@@ -20,22 +20,12 @@ public enum Role {
     }
 
     public static Role valueOf(final int role) {
-        switch (role) {
-        case 0:
-            return MEMBER;
-        case -1:
-            return FORBIDDEN;
-        case 1:
-            return VIP;
-        case 2:
-            return ADMIN;
-        case 3:
-            return SYSTEM_ADMIN;
-        case 99:
-            return ROOT;
-        default:
-            return null;
+        for (final Role cur : Role.values()) {
+            if (role == cur.code) {
+                return cur;
+            }
         }
+        return null;
     }
 
     public int value() {

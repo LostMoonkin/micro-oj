@@ -61,7 +61,7 @@ public class JWTHelper {
             final Role role = Role.valueOf((Integer) claims.get(ROLE_CLAIM));
             final Date expire = claims.getExpiration();
             final Long id = longCrypt.decrypt(obsId);
-            return new SessionUser(id, obsId, role, expire);
+            return new SessionUser(id, obsId, role, expire, token);
         } catch (final Exception e) {
             LOG.message("parserToken", "parse fail.", e)
                     .with("token", token)

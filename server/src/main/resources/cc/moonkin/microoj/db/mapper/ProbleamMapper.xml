@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.moonkin.microoj.db.mapper.ProblemMapper">
+
+    <insert id="add" parameterType="cc.moonkin.microoj.data.Problem" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO problem(
+        <trim suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="sampleInput != null">sample_input,</if>
+            <if test="sampleOutput != null">sample_output,</if>
+            <if test="source != null">source,</if>
+            <if test="timeLimit != null">time_limit,</if>
+            <if test="memoryLimit != null">memory_limit,</if>
+            <if test="stackLimit != null">stack_limit</if>
+        </trim>
+        )VALUES(
+        <trim suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="sampleInput != null">#{sampleInput},</if>
+            <if test="sampleOutput != null">#{sampleOutput},</if>
+            <if test="source != null">#{source},</if>
+            <if test="timeLimit != null">#{timeLimit},</if>
+            <if test="memoryLimit != null">#{memoryLimit},</if>
+            <if test="stackLimit != null">#{stackLimit}</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update" parameterType="cc.moonkin.microoj.data.Problem">
+        UPDATE problem
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="sampleInput != null">sample_input = #{sampleInput},</if>
+            <if test="sampleOutput != null">sample_output = #{sampleOutput},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="timeLimit != null">time_limit = #{timeLimit},</if>
+            <if test="memoryLimit != null">memory_limit = #{memoryLimit},</if>
+            <if test="stackLimit != null">stack_limit = #{stackLimit}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE problem
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="recover">
+        UPDATE problem
+        SET deleted = 0
+        WHERE id = #{id}
+    </update>
+
+    <select id="get" resultType="cc.moonkin.microoj.data.Problem">
+        SELECT
+        id, title, content, sample_input, sample_output, source, time_limit, memory_limit,
+        stack_limit
+        FROM problem
+        WHERE id = #{id}
+        <if test="!deleted">AND deleted = 0</if>
+    </select>
+
+    <select id="multiGet" resultType="cc.moonkin.microoj.data.Problem">
+        SELECT
+        id, title, content, sample_input, sample_output, source, time_limit, memory_limit,
+        stack_limit
+        FROM problem
+        <if test="!deleted">WHERE deleted = 0</if>
+        LIMIT #{col}, #{limit}
+    </select>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+        COUNT(*)
+        FROM problem
+    </select>
+
+</mapper>

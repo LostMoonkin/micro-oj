@@ -5,6 +5,7 @@ import cc.moonkin.microoj.constant.api.UserApi;
 import cc.moonkin.microoj.data.User;
 import cc.moonkin.microoj.data.enums.Role;
 import cc.moonkin.microoj.exception.LogInFailException;
+import cc.moonkin.microoj.exception.UserForbiddenException;
 import cc.moonkin.microoj.log.MicroLog;
 import cc.moonkin.microoj.logic.AuthLogic;
 import cc.moonkin.microoj.util.ParamUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -48,13 +50,14 @@ public class AuthController {
             @RequestParam(value = "email", required = false) final String email,
             @RequestParam(value = "password") final String password,
             @RequestParam(value = "remember", defaultValue = "false", required = false) final boolean remember,
-            final HttpServletResponse response) {
+            final HttpServletRequest request, final HttpServletResponse response) {
         if (ParamUtil.allEmpty(userName, email)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }
         try {
-            final String token = authLogic.logIn(userName, email, null, password, remember);
+            final String token = authLogic.logIn(request, userName, email, null, password,
+                    remember);
             if (token == null) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
@@ -67,6 +70,14 @@ public class AuthController {
                     .with("password", password)
                     .warn();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        } catch (final UserForbiddenException e) {
+            LOG.message("getLoginUser", e)
+                    .with("userName", userName)
+                    .with("email", email)
+                    .with("password", password)
+                    .warn();
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return null;
         }
     }

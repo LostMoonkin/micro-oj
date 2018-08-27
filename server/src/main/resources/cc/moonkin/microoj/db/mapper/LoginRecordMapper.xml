@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.moonkin.microoj.db.mapper.LoginRecordMapper">
+
+    <insert id="addRecord" parameterType="cc.moonkin.microoj.data.LoginRecord">
+        INSERT INTO login_record(
+        <trim suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="ip != null">ip,</if>
+            <if test="status != null">status,</if>
+            <if test="userAgent != null">user_agent</if>
+        </trim>
+        )VALUES(
+        <trim suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="status != null">#{status},</if>
+            <if test="userAgent != null">#{userAgent}</if>
+        </trim>
+        )
+    </insert>
+
+    <select id="multiGet" resultType="cc.moonkin.microoj.data.LoginRecord">
+        SELECT user_id, ip, status, user_agent, created
+        FROM login_record
+        WHERE created &gt;= #{start}
+        AND created &lt;= #{end}
+        <if test="status != null">AND status = #{status}</if>
+        LIMIT #{colNum}, #{limit}
+    </select>
+
+    <select id="getByUserId" resultType="cc.moonkin.microoj.data.LoginRecord">
+        SELECT user_id, ip, status, user_agent, created
+        FROM login_record
+        WHERE user_id = #{userId}
+        <if test="status != null">AND status = #{status}</if>
+        AND created &gt;= #{start}
+        AND created &lt;= #{end}
+        LIMIT #{colNum}, #{limit}
+    </select>
+
+    <select id="getByIp" resultType="cc.moonkin.microoj.data.LoginRecord">
+        SELECT user_id, ip, status, user_agent, created
+        FROM login_record
+        WHERE ip = #{ip}
+        <if test="status != null">AND status = #{status}</if>
+        AND created &gt;= #{start}
+        AND created &lt;= #{end}
+        LIMIT #{colNum}, #{limit}
+    </select>
+
+</mapper>

@@ -3,6 +3,7 @@ package cc.moonkin.microoj.data;
 import cc.moonkin.microoj.data.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SessionUser {
 
     private Long id;
@@ -21,4 +23,6 @@ public class SessionUser {
     private Role role;
 
     private Date expire;
+
+    private String token;
 }

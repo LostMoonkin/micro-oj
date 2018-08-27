@@ -8,6 +8,12 @@ spring:
     password: HLy3cqus
     driver-class-name: com.mysql.jdbc.Driver
 
+  redis:
+    host: 10.211.55.4
+    port: 6379
+    password: fcgyaL1RwwK1v2ID
+    database: 0
+
 server:
   port: 8095
 
@@ -25,3 +31,9 @@ jwt:
 long-crypt:
   key: 82567321235074
   radix: 35
+
+micro-oj:
+  login:
+    max-attempts: 10
+    duration: 1800
+    forbidden-time: 3600

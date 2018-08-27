@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.moonkin.microoj.db.mapper.SubmissionMapper">
+
+    <insert id="add" parameterType="cc.moonkin.microoj.data.Submission" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO submission(
+        <trim suffixOverrides=",">
+            <if test="problemId != null">problem_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="language != null">language,</if>
+            <if test="code != null">code</if>
+        </trim>
+        )VALUES(
+        <trim suffixOverrides=",">
+            <if test="problemId != null">#{problemId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="language != null">#{language},</if>
+            <if test="code != null">#{code}</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateStatus" parameterType="cc.moonkin.microoj.data.Submission">
+        UPDATE submission
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <select id="get" resultType="cc.moonkin.microoj.data.Submission">
+        SELECT
+        id, problem_id, user_id, status, language
+        FROM submission
+        WHERE id = #{id}
+    </select>
+
+    <select id="multiGetDesc" resultType="cc.moonkin.microoj.data.Submission">
+        SELECT
+        id, problem_id, user_id, status, language
+        FROM submission
+        ORDER BY id DESC
+        LIMIT #{col}, #{limit}
+    </select>
+
+    <select id="getByUser" resultType="cc.moonkin.microoj.data.Submission">
+        SELECT
+        id, problem_id, user_id, status, language
+        FROM submission
+        WHERE user_id = #{userId}
+        LIMIT #{col}, #{limit}
+    </select>
+
+    <select id="getByProblem" resultType="cc.moonkin.microoj.data.Submission">
+        SELECT
+        id, problem_id, user_id, status, language
+        FROM submission
+        WHERE problem_id = #{problemId}
+        LIMIT #{col}, #{limit}
+    </select>
+
+</mapper>
