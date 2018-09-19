@@ -19,12 +19,12 @@ public interface SubmissionMapper {
 
     Submission get(@Param("id") final long id);
 
-    List<Submission> multiGetDesc(@Param("col")final int col, @Param("limit") final int limit);
+    List<Submission> multiGetDesc(@Param("start")final int start, @Param("limit") final int limit);
 
-    List<Submission> getByUser(@Param("userId") final long userId, @Param("col") final int col,
+    List<Submission> getByUser(@Param("userId") final long userId, @Param("start") final int start,
             @Param("limit") final int limit);
 
     List<Submission> getByProblem(@Param("problemId") final long problemId,
-            @Param("col") final int col, @Param("limit") final int limit);
+            @Param("start") final int start, @Param("limit") final int limit);
 
 }

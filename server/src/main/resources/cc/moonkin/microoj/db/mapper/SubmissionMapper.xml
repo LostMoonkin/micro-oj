@@ -12,7 +12,11 @@
             <if test="userId != null">user_id,</if>
             <if test="status != null">status,</if>
             <if test="language != null">language,</if>
-            <if test="code != null">code</if>
+            <if test="code != null">code,</if>
+            <if test="codeLength != null">code_length,</if>
+            <if test="cpuTime != null">cpu_time,</if>
+            <if test="realTime != null">real_time,</if>
+            <if test="memory != null">memory</if>
         </trim>
         )VALUES(
         <trim suffixOverrides=",">
@@ -20,7 +24,11 @@
             <if test="userId != null">#{userId},</if>
             <if test="status != null">#{status},</if>
             <if test="language != null">#{language},</if>
-            <if test="code != null">#{code}</if>
+            <if test="code != null">#{code},</if>
+            <if test="codeLength != null">#{codeLength},</if>
+            <if test="cpuTime != null">#{cpuTime},</if>
+            <if test="realTime != null">#{realTime},</if>
+            <if test="memory != null">#{memory}</if>
         </trim>
         )
     </insert>
@@ -33,33 +41,33 @@
 
     <select id="get" resultType="cc.moonkin.microoj.data.Submission">
         SELECT
-        id, problem_id, user_id, status, language
+        id, problem_id, user_id, status, language, code_length, cpu_time, real_time, memory
         FROM submission
         WHERE id = #{id}
     </select>
 
     <select id="multiGetDesc" resultType="cc.moonkin.microoj.data.Submission">
         SELECT
-        id, problem_id, user_id, status, language
+        id, problem_id, user_id, status, language, code_length, cpu_time, real_time, memory
         FROM submission
         ORDER BY id DESC
-        LIMIT #{col}, #{limit}
+        LIMIT #{start}, #{limit}
     </select>
 
     <select id="getByUser" resultType="cc.moonkin.microoj.data.Submission">
         SELECT
-        id, problem_id, user_id, status, language
+        id, problem_id, user_id, status, language, code_length, cpu_time, real_time, memory
         FROM submission
         WHERE user_id = #{userId}
-        LIMIT #{col}, #{limit}
+        LIMIT #{start}, #{limit}
     </select>
 
     <select id="getByProblem" resultType="cc.moonkin.microoj.data.Submission">
         SELECT
-        id, problem_id, user_id, status, language
+        id, problem_id, user_id, status, language, code_length, cpu_time, real_time, memory
         FROM submission
         WHERE problem_id = #{problemId}
-        LIMIT #{col}, #{limit}
+        LIMIT #{start}, #{limit}
     </select>
 
 </mapper>

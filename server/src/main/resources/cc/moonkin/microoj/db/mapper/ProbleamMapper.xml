@@ -73,7 +73,7 @@
         stack_limit
         FROM problem
         <if test="!deleted">WHERE deleted = 0</if>
-        LIMIT #{col}, #{limit}
+        LIMIT #{start}, #{limit}
     </select>
 
     <select id="count" resultType="java.lang.Long">

@@ -25,6 +25,14 @@ public class Submission {
 
     private Integer language;
 
+    private Integer codeLength;
+
+    private Integer cpuTime;
+
+    private Integer realTime;
+
+    private Integer memory;
+
     private Timestamp created;
 
     private Timestamp lastModified;

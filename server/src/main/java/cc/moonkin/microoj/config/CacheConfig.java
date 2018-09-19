@@ -22,7 +22,8 @@ public class CacheConfig {
     public CacheManager cacheManager() {
         final SimpleCacheManager manager = new SimpleCacheManager();
         manager.setCaches(
-                Collections.singletonList(new ConcurrentMapCache(CacheConstants.PROBLEM_CACHE)));
+                Collections
+                        .singletonList(new ConcurrentMapCache(CacheConstants.PROBLEM_COUNT_CACHE)));
         return manager;
     }
 }
