@@ -1,4 +1,4 @@
-package cc.moonkin.microoj.advice;
+package cc.moonkin.microoj.annotation;
 
 import cc.moonkin.microoj.data.enums.Role;
 

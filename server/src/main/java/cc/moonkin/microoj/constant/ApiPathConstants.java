@@ -4,7 +4,7 @@ package cc.moonkin.microoj.constant;
  * @author anchun
  *
  */
-public class ApiPathConstants {
+public interface ApiPathConstants {
 
-    public static final String REST_API_PREFIX = "/api";
+    String REST_API_PREFIX = "/api";
 }

@@ -1,11 +1,11 @@
 package cc.moonkin.microoj.controller;
 
-import cc.moonkin.microoj.advice.Auth;
+import cc.moonkin.microoj.annotation.Auth;
 import cc.moonkin.microoj.constant.api.RecordApi;
 import cc.moonkin.microoj.data.LoginRecord;
 import cc.moonkin.microoj.data.enums.Role;
 import cc.moonkin.microoj.log.MicroLog;
-import cc.moonkin.microoj.logic.LoginRecordLogic;
+import cc.moonkin.microoj.service.LoginRecordService;
 import cc.moonkin.microoj.util.LongCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class RecordController {
     private static final MicroLog LOG = MicroLog.getLogger(RecordController.class);
 
     @Autowired
-    private LoginRecordLogic recordLogic;
+    private LoginRecordService recordService;
 
     @Autowired
     private LongCrypt longCrypt;
@@ -38,7 +38,7 @@ public class RecordController {
             @RequestParam(value = "end") final Long end,
             @RequestParam(value = "page", defaultValue = "0") final int page,
             @RequestParam(value = "limit", defaultValue = "10") final int limit) {
-        return recordLogic.getLatestRecord(new Timestamp(start), new Timestamp(end), status, page
+        return recordService.getLatestRecord(new Timestamp(start), new Timestamp(end), status, page
                 , limit);
     }
 
@@ -52,7 +52,7 @@ public class RecordController {
             @RequestParam(value = "page", defaultValue = "0") final int page,
             @RequestParam(value = "limit", defaultValue = "10") final int limit) {
         final Long userId = longCrypt.decrypt(obsUserId);
-        return recordLogic.getLoginRecordByUserId(userId, status, new Timestamp(start),
+        return recordService.getLoginRecordByUserId(userId, status, new Timestamp(start),
                 new Timestamp(end), page, limit);
     }
 
@@ -65,7 +65,7 @@ public class RecordController {
             @RequestParam(value = "end") final Long end,
             @RequestParam(value = "page", defaultValue = "0") final int page,
             @RequestParam(value = "limit", defaultValue = "10") final int limit) {
-        return recordLogic.getLoginRecordByIp(ip, status, new Timestamp(start),
+        return recordService.getLoginRecordByIp(ip, status, new Timestamp(start),
                 new Timestamp(end), page, limit);
     }
 }

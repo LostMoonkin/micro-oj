@@ -15,7 +15,8 @@
             <if test="source != null">source,</if>
             <if test="timeLimit != null">time_limit,</if>
             <if test="memoryLimit != null">memory_limit,</if>
-            <if test="stackLimit != null">stack_limit</if>
+            <if test="stackLimit != null">stack_limit,</if>
+            <if test="spj != null">spj</if>
         </trim>
         )VALUES(
         <trim suffixOverrides=",">
@@ -26,7 +27,8 @@
             <if test="source != null">#{source},</if>
             <if test="timeLimit != null">#{timeLimit},</if>
             <if test="memoryLimit != null">#{memoryLimit},</if>
-            <if test="stackLimit != null">#{stackLimit}</if>
+            <if test="stackLimit != null">#{stackLimit},</if>
+            <if test="spj != null">#{spj}</if>
         </trim>
         )
     </insert>
@@ -41,7 +43,8 @@
             <if test="source != null">source = #{source},</if>
             <if test="timeLimit != null">time_limit = #{timeLimit},</if>
             <if test="memoryLimit != null">memory_limit = #{memoryLimit},</if>
-            <if test="stackLimit != null">stack_limit = #{stackLimit}</if>
+            <if test="stackLimit != null">stack_limit = #{stackLimit},</if>
+            <if test="spj != null">spj = #{spj}</if>
         </set>
         WHERE id = #{id}
     </update>
@@ -60,8 +63,7 @@
 
     <select id="get" resultType="cc.moonkin.microoj.data.Problem">
         SELECT
-        id, title, content, sample_input, sample_output, source, time_limit, memory_limit,
-        stack_limit
+        *
         FROM problem
         WHERE id = #{id}
         <if test="!deleted">AND deleted = 0</if>
@@ -69,8 +71,7 @@
 
     <select id="multiGet" resultType="cc.moonkin.microoj.data.Problem">
         SELECT
-        id, title, content, sample_input, sample_output, source, time_limit, memory_limit,
-        stack_limit
+        *
         FROM problem
         <if test="!deleted">WHERE deleted = 0</if>
         LIMIT #{start}, #{limit}

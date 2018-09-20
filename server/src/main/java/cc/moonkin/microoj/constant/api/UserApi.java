@@ -6,9 +6,9 @@ import cc.moonkin.microoj.constant.ApiPathConstants;
  * @author anchun
  *
  */
-public class UserApi {
+public interface UserApi {
 
-    public static final String USER_API = ApiPathConstants.REST_API_PREFIX + "/user";
+    String USER_API = ApiPathConstants.REST_API_PREFIX + "/user";
 
-    public static final String USER_DISPLAY_API = USER_API + "/display";
+    String USER_DISPLAY_API = USER_API + "/display";
 }

@@ -1,4 +1,4 @@
-package cc.moonkin.microoj.logic;
+package cc.moonkin.microoj.service;
 
 import cc.moonkin.microoj.constant.SessionConstants;
 import cc.moonkin.microoj.data.LoginRecord;
@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 @Service
-public class AuthLogic {
+public class AuthService {
 
-    private static final MicroLog LOG = MicroLog.getLogger(AuthLogic.class);
+    private static final MicroLog LOG = MicroLog.getLogger(AuthService.class);
 
     @Autowired
     private JWTHelper jwtHelper;

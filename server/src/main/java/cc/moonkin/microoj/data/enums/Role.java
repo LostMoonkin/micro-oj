@@ -9,7 +9,7 @@ public enum Role {
     MEMBER(0),
     FORBIDDEN(-1),
     VIP(1),
-    ADMIN(2),
+    GROUP_ADMIN(2),
     SYSTEM_ADMIN(3),
     ROOT(99);
 

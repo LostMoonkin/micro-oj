@@ -1,13 +1,12 @@
 package cc.moonkin.microoj.controller;
 
 import cc.moonkin.microoj.constant.api.AuthApi;
-import cc.moonkin.microoj.constant.api.UserApi;
 import cc.moonkin.microoj.data.User;
 import cc.moonkin.microoj.data.enums.Role;
 import cc.moonkin.microoj.exception.LogInFailException;
 import cc.moonkin.microoj.exception.UserForbiddenException;
 import cc.moonkin.microoj.log.MicroLog;
-import cc.moonkin.microoj.logic.AuthLogic;
+import cc.moonkin.microoj.service.AuthService;
 import cc.moonkin.microoj.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +27,7 @@ public class AuthController {
     private static final MicroLog LOG = MicroLog.getLogger(AuthController.class);
 
     @Autowired
-    private AuthLogic authLogic;
+    private AuthService authService;
 
     @PostMapping(value = AuthApi.SIGN_UP_API)
     public Boolean signUp(@RequestBody final User user, final HttpServletResponse response) {
@@ -41,7 +40,7 @@ public class AuthController {
             return null;
         }
         user.setRole(Role.MEMBER.value());
-        return authLogic.createUser(user);
+        return authService.createUser(user);
     }
 
     @PostMapping(value = AuthApi.LOGIN_API)
@@ -56,7 +55,7 @@ public class AuthController {
             return null;
         }
         try {
-            final String token = authLogic.logIn(request, userName, email, null, password,
+            final String token = authService.logIn(request, userName, email, null, password,
                     remember);
             if (token == null) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -64,7 +63,8 @@ public class AuthController {
             }
             return token;
         } catch (final LogInFailException e) {
-            LOG.message("getLoginUser", e)
+            LOG.message("getLoginUser - login failed")
+                    .with("message", e.getMessage())
                     .with("userName", userName)
                     .with("email", email)
                     .with("password", password)

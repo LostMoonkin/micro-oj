@@ -1,4 +1,4 @@
-package cc.moonkin.microoj.logic;
+package cc.moonkin.microoj.service;
 
 import cc.moonkin.microoj.data.User;
 import cc.moonkin.microoj.db.UserDb;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class UserLogic {
+public class UserService {
 
-    private static final MicroLog LOG = MicroLog.getLogger(UserLogic.class);
+    private static final MicroLog LOG = MicroLog.getLogger(UserService.class);
 
     @Autowired
     private UserDb userDb;

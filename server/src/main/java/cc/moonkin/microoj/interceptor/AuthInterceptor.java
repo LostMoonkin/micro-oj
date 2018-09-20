@@ -1,10 +1,9 @@
 package cc.moonkin.microoj.interceptor;
 
-import cc.moonkin.microoj.advice.Auth;
+import cc.moonkin.microoj.annotation.Auth;
 import cc.moonkin.microoj.data.enums.Role;
 import cc.moonkin.microoj.log.MicroLog;
 import cc.moonkin.microoj.util.SessionUserContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

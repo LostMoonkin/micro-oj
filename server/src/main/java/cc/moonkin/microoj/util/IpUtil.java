@@ -15,7 +15,7 @@ public class IpUtil {
     private static final String UNKNOWN = "unknown";
 
     public static String getRealUserIp(@NotNull final HttpServletRequest request) {
-        String ip = request.getHeader(SessionConstants.REAL_IP_HEADER);
+        String ip = request.getHeader(SessionConstants.IP_HEADER);
         if(isUnknownIp(ip)){
             ip=request.getHeader(SessionConstants.PROXY_IP_HEADER);
         }

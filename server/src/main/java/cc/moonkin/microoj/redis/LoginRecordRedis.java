@@ -52,11 +52,11 @@ public class LoginRecordRedis {
 
         final String countKey = COUNT_KEY_PREFIX + userId;
 
-        Long count = (Long) operations.get(countKey);
+        Integer count = (Integer) operations.get(countKey);
         if (count != null) {
-            count = count + 1L;
+            count = count + 1;
         } else {
-            count = 1L;
+            count = 1;
         }
         operations.set(countKey, count, duration, TimeUnit.SECONDS);
         if (count > maxAttempts) {

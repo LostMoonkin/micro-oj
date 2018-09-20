@@ -1,4 +1,4 @@
-package cc.moonkin.microoj.logic;
+package cc.moonkin.microoj.service;
 
 import cc.moonkin.microoj.data.LoginRecord;
 import cc.moonkin.microoj.db.LoginRecordDb;
@@ -14,9 +14,9 @@ import java.util.List;
  *
  */
 @Service
-public class LoginRecordLogic {
+public class LoginRecordService {
 
-    private static final MicroLog LOG = MicroLog.getLogger(LoginRecordLogic.class);
+    private static final MicroLog LOG = MicroLog.getLogger(LoginRecordService.class);
 
     @Autowired
     private LoginRecordDb recordDb;

@@ -41,7 +41,8 @@ public class ProblemDb {
         return problemMapper.count(includeDeleted);
     }
 
-    @CacheEvict(value = CacheConstants.PROBLEM_COUNT_CACHE, allEntries = true)
+    @CacheEvict(value = CacheConstants.PROBLEM_COUNT_CACHE, allEntries = true,
+            condition = "#result == true ")
     public boolean addProblem(final Problem problem) {
         if (problem == null) {
             LOG.message("addProblem", "problem is null")
