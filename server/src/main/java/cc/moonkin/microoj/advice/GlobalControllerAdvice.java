@@ -1,6 +1,7 @@
 package cc.moonkin.microoj.advice;
 
 import cc.moonkin.microoj.data.response.GlobalResponse;
+import cc.moonkin.microoj.exception.AuthenticationException;
 import cc.moonkin.microoj.exception.ServerException;
 import cc.moonkin.microoj.log.MicroLog;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,16 @@ public class GlobalControllerAdvice {
     private static final MicroLog LOG = MicroLog.getLogger(GlobalControllerAdvice.class);
 
     @ExceptionHandler(value = ServerException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public GlobalResponse parseError(final ServerException e) {
         LOG.message("parseError")
                 .with("code", e.getCode())
                 .with("status", e.getStatus())
                 .warn();
         return new GlobalResponse(e.getCode(), e.getStatus());
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public void authFailed(final AuthenticationException e) {
     }
 }
